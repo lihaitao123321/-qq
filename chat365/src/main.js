@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+
 //使用mint-框架,http://mint-ui.github.io/#!/zh-cn
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css';
@@ -16,7 +17,8 @@ import './assets/font-awesome-4.7.0/css/font-awesome.css'
 import './units/main.css'
 
 //引入全局axios
-Vue.prototype.axios= import('axios');
+import axios from 'axios'
+Vue.prototype.axios= axios;
 
 
 Vue.config.productionTip = false
