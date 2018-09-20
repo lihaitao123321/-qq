@@ -34,17 +34,22 @@
       login(){
         this.axios({
           method: 'post',
-          url: 'http://localhost:3000/user/login',
+          url: 'http://120.79.167.154:3000/user/login',
           params: {
             phone: this.phone,
             passWord: this.passWord
           }
         }).then((res) => {
           console.log('login',res);
+          if(res.data.code==0){
+            //存储登录信息
+            localStorage.setItem('userInfo',JSON.stringify(res.data));
+            //跳转到注册页面
+            this.$router.push('/register');
+          }
           // 聊天服务器登录
           // this.$socket.emit('login', res.data.chatId);
           // this.$route.push();
-
         })
       },
       register(){
