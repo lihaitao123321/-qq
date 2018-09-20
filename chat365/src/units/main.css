@@ -1,0 +1,110 @@
+body{
+background-color: rgb(248, 248, 248);
+}
+/*
+http://www.runoob.com/w3cnote/flex-grammar.html
+flex布局,Webkit内核的浏览器，必须加上-webkit前缀。
+注意: 设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
+
+flex-direction： 决定主轴的方向
+      row（默认值）：主轴为水平方向，起点在左端。
+      row-reverse：主轴为水平方向，起点在右端。
+      column：主轴为垂直方向，起点在上沿。
+      column-reverse：主轴为垂直方向，起点在下沿。
+
+flex-wrap：默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。
+      nowrap：[ræp]不换行
+      wrap：换行，第一行在上方。
+      wrap-reverse：[rɪˈvɜ:rs]换行，第一行在下方。
+
+flex-flow：flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+      flex-flow: <flex-direction> || <flex-wrap>;
+
+justify-content: [ˈdʒʌstəˌfaɪ]主轴上的对齐方式。
+      flex-start（默认值）：左对齐
+      flex-end：右对齐
+      center： 居中
+      space-between：两端对齐，项目之间的间隔都相等。
+      space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
+
+align-items: 交叉轴对齐方式。
+      flex-start：交叉轴的起点对齐。
+      flex-end：交叉轴的终点对齐。
+      center：交叉轴的中点对齐。
+      baseline: 项目的第一行文字的基线对齐。
+      stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
+
+align-content: 多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+      flex-start：与交叉轴的起点对齐。
+      flex-end：与交叉轴的终点对齐。
+      center：与交叉轴的中点对齐。
+      space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
+      space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+      stretch（默认值）：轴线占满整个交叉轴。
+*/
+.uba{
+  border: 1px solid;
+  box-sizing: border-box;
+}
+.flaxbox{
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  flex-flow:row wrap;
+  box-sizing: border-box;
+}
+.flaxbox-inline{
+  display: -webkit-inline-flex; /* Safari */
+  display: inline-flex;
+  flex-flow:row wrap;
+}
+.ub{
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  /*flex-flow:row wrap;*/
+  box-sizing: border-box;
+}
+.ub-ver{
+  flex-direction:column;
+}
+.ub-ac{
+  align-items:center;
+}
+.ub-ae{
+  align-items: flex-end;
+}
+.ub-aj{
+  justify-content:space-around;
+}
+.ub-pc{
+  justify-content:center;
+}
+.ub-pace{
+  justify-content:space-between;
+}
+
+.ub-f1{
+  flex-grow:1;
+}
+.ub-f2{
+  flex-grow:2;
+}
+.ub-f3{
+  flex-grow:3;
+}
+.ub-f4{
+  flex-grow:4;
+}
+.ub-f5{
+  flex-grow:5;
+}
+.ub-f6{
+  flex-grow:6;
+}
+.ub-f7{
+  flex-grow:7;
+}
+
+.ub-con{
+  width: 100%;
+  height: 100%;
+}
