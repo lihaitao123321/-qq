@@ -1,5 +1,6 @@
 //
 module.exports = (scope, cb) => {
+  const http = require('http');
   const express = require('express')
   const path = require('path')
   const cookieParser = require('cookie-parser')
@@ -7,7 +8,9 @@ module.exports = (scope, cb) => {
   const nunjucks = require('nunjucks')
   const onRender = require('on-rendered')
   const DB = require('./core/mysql')
+  const Io=require('./app/chat/socket.io')
   const Tools= require('./shared/tools')
+
   //日志
   const logger = scope.logger
   //配置
@@ -63,15 +66,21 @@ module.exports = (scope, cb) => {
     //这个中间件应该是所有中间件的最后的一个，只应该有一个错误处理中间件。
     webApp.use('*',errHandle.serverError)
 
+
+
+
   } catch (e) {
     logger.error(e)
   }
 
   //监听端口请求
-  webApp.listen(config.port, () => {
+  var server=webApp.listen(config.port, () => {
     logger.info(`${pkg.name} start at http://localhost:${config.port}/`)
     cb(null, webApp)
   })
+
+  //聊天服务启动和处理
+  Io(server);
 
   //监听服务关闭,关闭数据库连接
   webApp.on('close',()=>{

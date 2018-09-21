@@ -20,6 +20,11 @@ import './units/main.css'
 import axios from 'axios'
 Vue.prototype.axios= axios;
 
+//聊天服务器相关
+import VueSocketio from 'vue-socket.io';
+import socketio from 'socket.io-client';
+Vue.use(VueSocketio, socketio('http://120.79.167.154:3000/'));
+
 
 Vue.config.productionTip = false
 
