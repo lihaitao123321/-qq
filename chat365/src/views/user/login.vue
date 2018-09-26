@@ -58,13 +58,30 @@
             // 聊天服务器登录
             this.$socket.emit('login', res.data.data.phone);
             //跳转到注册页面
-            // this.$router.push('/register');
+            this.$router.push('/home');
           }
 
         })
       },
       register(){
-
+        this.axios({
+          method: 'post',
+          url: 'http://120.79.167.154:3000/user/register',
+          params: {
+            phone: this.phone,
+            passWord: this.passWord
+          }
+        }).then((res) => {
+          console.log('register',res);
+          if(res.data.code==0){
+            //存储登录信息
+            localStorage.setItem('userInfo',JSON.stringify(res.data));
+            // 聊天服务器登录
+            this.$socket.emit('login', res.data.data.phone);
+            //跳转到注册页面
+            // this.$router.push('/register');
+          }
+        })
       }
     }
   }

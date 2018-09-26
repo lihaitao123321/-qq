@@ -5,7 +5,7 @@ module.exports = (app) => {
   //  李海涛负责---用户模块
   app.use('/user', require('./app/user'));
   //  李海涛负责---用户模块
-  app.use('/chat', require('./app/user'));
+  app.use('/chat', require('./app/chat'));
 
 
 

@@ -22,7 +22,7 @@ module.exports = (scope, cb) => {
   webApp.scope = scope
   //格式化接受数据
   webApp.use(bodyParser.urlencoded({ extended: false }));
-  //返回前端json,注意需要跨域
+  //返回前端json,注意需要跨域下面有设置
   webApp.use(bodyParser.json())
   //cookie使用
   webApp.use(cookieParser())
@@ -79,7 +79,7 @@ module.exports = (scope, cb) => {
     cb(null, webApp)
   })
 
-  //聊天服务启动和处理
+  //聊天服务启动和处理↓↓↓↓↓↓↓↓↓↓↓↓↓↓
   Io(server);
 
   //监听服务关闭,关闭数据库连接
@@ -91,4 +91,5 @@ module.exports = (scope, cb) => {
   global.DB = DB;
   //工具类注册为全局变量
   global.Tools = Tools;
+
 }

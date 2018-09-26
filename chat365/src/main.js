@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Tools from './units/Tools'
 
 
 //使用mint-框架,http://mint-ui.github.io/#!/zh-cn
@@ -24,6 +25,9 @@ Vue.prototype.axios= axios;
 import VueSocketio from 'vue-socket.io';
 import socketio from 'socket.io-client';
 Vue.use(VueSocketio, socketio('http://120.79.167.154:3000/'));
+
+//注册工具类
+global.Tools = Tools;
 
 
 Vue.config.productionTip = false
