@@ -1,17 +1,17 @@
 <template>
   <div class="chat">
-    <div class="chatItem ub ub-ac" v-for="(item,index) in chatList" @click="clickItem(item,index)">
+    <div class="chatItem ub ub-ac" v-for="(item,index) in getChatList" @click="clickItem(item,index)">
       <div class="chatItem_left">
-        <img class="headerImg" :src="item.headImg"/>
+        <img class="headerImg" :src="item.chatterInfo.headImg"/>
       </div>
       <div class="ub ub-f1 ub-ver chatItem_right">
         <div class="ub ub-f1 ub-con ub-ac  ">
-          <div class="ub-f1 title">{{item.nickName}}</div>
-          <div class="desc">{{getTime(item)}}</div>
+          <div class="ub-f1 title">{{item.chatterInfo.nickName}}</div>
+          <div class="desc">{{getTime(item.chatterInfo)}}</div>
         </div>
         <div class="ub ub-f1 ub-con ub-ac ">
-          <div class="ub-f1 desc">{{item.messageBody}}</div>
-          <div class="msgNum" v-if="item.unreadMsgCount">{{item.unreadMsgCount}}</div>
+          <div class="ub-f1 desc">{{item.chatterInfo.messageBody}}</div>
+          <div class="msgNum" v-if="item.chatterInfo.unreadMsgCount">{{item.chatterInfo.unreadMsgCount}}</div>
         </div>
       </div>
     </div>
@@ -32,37 +32,27 @@
       //点击聊天列表
       clickItem(item, index) {
         //  清空未读消息数
-        this.$socket.emit('resetUnreadMsgCount', {phone: item.chatter, chatType: item.chatType});
+        this.$socket.emit('resetUnreadMsgCount', {phone:this.$store.state.loginInfo.phone,chatter: item.chatterInfo.chatter});
         //跳转到单聊或者群聊
-        if (item.chatType == 0) {
+        if (item.chatterInfo.chatType == 0) {
           this.$router.push({
             name: 'chatOne',
             params: {
-              chatter: item
+              chatterInfo: item.chatterInfo
             }
           });
-        } else if (item.chatType == 1) {
+        } else if (item.chatterInfo.chatType == 1) {
           this.$router.push({
-            path: 'chatGroup',
+            name: 'chatGroup',
             params: {
-              chatter: item
+              chatterInfo: item.chatterInfo
             }
           });
         }
       },
       getRecentChatters() {
-        this.axios({
-          method: 'post',
-          url: 'http://120.79.167.154:3000/chat/getRecentChatters',
-          params: {
-            phone: this.phone
-          }
-        }).then((res) => {
-          // console.log('getRecentChatters', res);
-          if (res.data.code == 0) {
-            this.chatList = res.data.data;
-          }
-        })
+        //获取近期聊天对象
+        this.$socket.emit('getRecentChatters', this.$store.state.loginInfo.phone);
       },
       getTime(item) {
         return Tools.TimeFormat(new Date(item.sendTime).getTime(), 'ymdhms')
@@ -70,6 +60,12 @@
     },
     mounted() {
       this.getRecentChatters();
+    },
+    computed:{
+      getChatList(){
+
+        return this.$store.state.chatInfo.chatList
+      }
     }
   }
 </script>

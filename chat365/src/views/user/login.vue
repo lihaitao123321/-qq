@@ -22,6 +22,7 @@
 </template>
 
 <script>
+
   export default {
     name: "login",
     data() {
@@ -30,17 +31,7 @@
         passWord: '123456'
       }
     },
-    sockets: {
-      connect(json) {
-        // console.log(json);
-      },
-      cbLogin(value) {
-        console.log('chat-login',value)
-      },
-      onMessage(json){
-        console.log('chat-onMessage',json.msg)
-      }
-    },
+
     methods:{
       login(){
         this.axios({
@@ -51,16 +42,15 @@
             passWord: this.passWord
           }
         }).then((res) => {
-          console.log('login',res);
           if(res.data.code==0){
-            //存储登录信息
-            localStorage.setItem('userInfo',JSON.stringify(res.data));
+            //存储登录信息到本地
+            localStorage.setItem('userInfo',JSON.stringify(res.data.data));
+            this.$store.commit('setUserInfo',res.data.data);
             // 聊天服务器登录
-            this.$socket.emit('login', res.data.data.phone);
-            //跳转到注册页面
+            // this.$socket.emit('login', res.data.data.phone);
+            //跳转首页
             this.$router.push('/home');
           }
-
         })
       },
       register(){
